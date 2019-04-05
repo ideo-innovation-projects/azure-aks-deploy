@@ -1,10 +1,11 @@
 ---
 # tasks 02_azure_preparation.yaml file for aks-deployment
-- name: Azure login
-  shell: |
-    az login -u {{ azure_username }} -p {{ azure_password }} -t {{ azure_tenant }}
+#- name: Azure login
+#  shell: |
+#    az login -u {{ azure_username }} -p {{ azure_password }} -t {{ azure_tenant }}
 - name: Create POC resource group
   azure_rm_resourcegroup:
+    auth_source: "{{ aks.auth_source }}"
     name: "{{ resource_group.name }}"
     location: "{{ region.name }}"
   register: rg_status

@@ -27,5 +27,5 @@ aks:
     name: default
     count: 2
     vm_size: Standard_D2_v2
-  auth_source: "cli"
+  auth_source: "env"
   tag: "poc-claro"
