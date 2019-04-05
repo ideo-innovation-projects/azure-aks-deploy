@@ -16,13 +16,13 @@
       admin_username: "{{ aks.linux_profile.username }}"
       ssh_key: "{{ aks.linux_profile.ssh_key }}"
     service_principal:
-      client_id: "{{ aks_sp_client }}"
-      client_secret: "{{ aks_sp_password }}"
+      client_id: "{{ lookup('env', 'AZURE_CLIENT_ID') }}"
+      client_secret: "{{ lookup('env', 'AZURE_SECRET') }}"
     agent_pool_profiles:
       - name: "{{ aks.agent_pool_profiles.name }}"
         count: "{{ aks.agent_pool_profiles.count }}"
         vm_size: "{{ aks.agent_pool_profiles.vm_size }}"
-    auth_source: "{{ aks.auth_source }}"
+    auth_source: "{{ auth_source }}"
     tags:
       poc: "{{ aks.tag }}"
     

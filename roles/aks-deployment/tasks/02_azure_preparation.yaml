@@ -5,7 +5,7 @@
 #    az login -u {{ azure_username }} -p {{ azure_password }} -t {{ azure_tenant }}
 - name: Create POC resource group
   azure_rm_resourcegroup:
-    auth_source: "{{ aks.auth_source }}"
+    auth_source: "{{ auth_source }}"
     name: "{{ resource_group.name }}"
     location: "{{ region.name }}"
   register: rg_status
@@ -21,6 +21,7 @@
         - "{{ vnet.address_prefixes_cidr }}"
     dns_servers:
         - "{{ vnet.dns }}"
+    auth_source: "{{ auth_source }}"
     tags:
         poc: "{{ vnet.tag }}"
 
@@ -30,5 +31,7 @@
     virtual_network_name: "{{ vnet.name }}"
     resource_group: "{{ resource_group.name }}"
     address_prefix_cidr: "{{ subnet.address_prefix_cidr }}"
+    auth_source: "{{ auth_source }}"
+
 
 
