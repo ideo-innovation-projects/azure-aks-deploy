@@ -1,2 +1,4 @@
 ---
 # handlers file for aks-prerequisites
+- name: finish
+  meta: end_play

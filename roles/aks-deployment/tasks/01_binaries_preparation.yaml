@@ -4,7 +4,7 @@
   stat:
     path: /usr/local/bin/{{ item }}
   register: register_binaries
-  loop: "{{ ['helm','kubectl','az'] }}"
+  loop: "{{ ['helmm','kubectl','az'] }}"
 
 - debug:
     msg: "{{ binaries_item.item }} doesn't exist , Please install binary for {{ binaries_item.item }}"
@@ -12,6 +12,7 @@
     - "{{ register_binaries.results }}"
   loop_control:
     loop_var: binaries_item
-  when: binaries_item.stat.exists == False 
+  failed_when: binaries_item.stat.exists == False 
+  when: binaries_item.stat.exists == False
 
 

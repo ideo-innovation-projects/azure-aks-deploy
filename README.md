@@ -80,13 +80,8 @@ aks:
 ```
 Dependencies
 ------------
-
-By default when you execute this playbook the prompt answer you five parameters:
-* azure username ( azure portal )
-* azure password (azure portal )
-* azure tenant ID
-* service principal ID
-* service principal password
+* Service Principal Client ID
+* Service Principal Password
 
 Example Playbook
 ----------------
