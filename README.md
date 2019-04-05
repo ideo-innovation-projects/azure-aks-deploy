@@ -119,6 +119,11 @@ host file
 [k8s-aks-dev]
 localhost
 ```
+
+```bash
+ansible-playbook site.yaml -i hosts -e 'hosted_on=aks' -e 'deployment_enviroment=dev'
+```
+
 License
 -------
 
