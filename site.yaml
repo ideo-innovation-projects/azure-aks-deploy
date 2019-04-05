@@ -9,11 +9,11 @@
       prompt: "Please, Insert your azure password"
       private: yes
     - name: "azure_tenant"
-      prompt: "Please, Insert your azure tenant"
+      prompt: "Please, Insert your azure tenant ID"
     - name: "aks_sp_client"
-      prompt: "Please, Insert your service principal ID:"
+      prompt: "Please, Insert your service principal ID"
     - name: "aks_sp_password"
-      prompt: "Please, Insert your service principal password:"    
+      prompt: "Please, Insert your service principal password"    
   tasks:
   - import_role:
        name: aks-deployment
