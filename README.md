@@ -15,6 +15,7 @@ At this time your local deployment host need the following prerequisites:
 Also python module
 ```
 pip install ansible[azure]
+pip install openshift
 ```
 Note: If you are using MacOsx space the brackets
 
