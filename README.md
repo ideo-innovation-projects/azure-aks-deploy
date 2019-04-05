@@ -91,19 +91,7 @@ Including an example of how to use your role (for instance, with variables passe
 ---
 - hosts: k8s-{{ hosted_on }}-{{ deployment_enviroment }}
   connection: local
-  gather_facts: no
-  vars_prompt:
-    - name: "azure_username"
-      prompt: "Please, Insert your azure username"
-    - name: "azure_password"
-      prompt: "Please, Insert your azure password"
-      private: yes
-    - name: "azure_tenant"
-      prompt: "Please, Insert your azure tenant"
-    - name: "aks_sp_client"
-      prompt: "Please, Insert your service principal ID:"
-    - name: "aks_sp_password"
-      prompt: "Please, Insert your service principal password:"    
+  gather_facts: yes  
   tasks:
   - import_role:
        name: aks-deployment
