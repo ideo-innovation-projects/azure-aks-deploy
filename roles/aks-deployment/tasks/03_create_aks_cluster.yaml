@@ -1,5 +1,11 @@
 ---
 # 03_create_aks_cluster file for aks-deployment
+
+
+- name: que trae esto?
+  debug: 
+    msg: "este es el valor de linux_profile: {{ aks.linux_profile.ssh_key }}"
+
 - name: Create a managed Azure Container Services (AKS) instance
   azure_rm_aks:
     name: "{{ aks.name }}"
