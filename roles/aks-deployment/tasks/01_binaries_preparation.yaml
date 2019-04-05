@@ -1,0 +1,17 @@
+---
+# tasks 01_binaries_preparation.yaml file for aks-deployment
+- name: validate binaries pre-requisites for run AKS preparation
+  stat:
+    path: /usr/local/bin/{{ item }}
+  register: register_binaries
+  loop: "{{ ['helm','kubectl','az'] }}"
+
+- debug:
+    msg: "{{ binaries_item.item }} doesn't exist , Please install binary for {{ binaries_item.item }}"
+  with_items: 
+    - "{{ register_binaries.results }}"
+  loop_control:
+    loop_var: binaries_item
+  when: binaries_item.stat.exists == False 
+
+

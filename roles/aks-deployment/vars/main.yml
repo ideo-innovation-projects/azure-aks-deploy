@@ -1,0 +1,31 @@
+---
+# vars file for aks-deployment
+region:
+  name: eastus2
+
+resource_group:
+  name: aks-poc
+
+vnet:
+  name: aks-vnet
+  address_prefixes_cidr: 10.80.0.0/22
+  dns: 8.8.8.8
+  tag: testing
+
+subnet:
+  name: aks-subnet
+  virtual_network_name: "{{ vnet.name }}"
+  address_prefix_cidr: 10.80.0.0/24
+
+aks:
+  name: "aks-claro-poc"
+  dns_prefix: "pocclaro"
+  linux_profile:
+    username: poc_claro
+    ssh_key: "/Users/everis/.ssh/id_rsa.pub"
+  agent_pool_profiles:
+    name: default
+    count: 2
+    vm_size: Standard_D2_v2
+  auth_source: "cli"
+  tag: "poc-claro"

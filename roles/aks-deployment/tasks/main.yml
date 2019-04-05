@@ -1,0 +1,5 @@
+---
+# tasks file for aks-prerequisites
+- include_tasks: 01_binaries_preparation.yaml
+- include_tasks: 02_azure_preparation.yaml
+- include_tasks: 03_create_aks_cluster.yaml

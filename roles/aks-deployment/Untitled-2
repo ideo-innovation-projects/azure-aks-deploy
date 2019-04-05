@@ -1,0 +1,10 @@
+#GitOps
+Installing Flux using Helm
+helm repo add weaveworks https://weaveworks.github.io/flux
+
+az ad sp create-for-rbac -n "aks-deployment-user" --role owner --scope subscriptions/f6205eb2-ffec-4f83-bad1-b1454cfd198d --password Fuckinea69
+
+export AZURE_SUBSCRIPTION_ID=4bfe38fa-e050-47c8-a4af-f720b1a2d6c5
+export AZURE_CLIENT_ID=93cb3e5f-e4a4-485d-bee1-f40bca7f0292
+export AZURE_SECRET=Fuckina69
+export AZURE_TENANT=5d93ebcc-f769-4380-8b7e-289fc972da1b

@@ -1,0 +1,33 @@
+---
+# tasks 02_azure_preparation.yaml file for aks-deployment
+- name: Azure login
+  shell: |
+    az login -u {{ azure_username }} -p {{ azure_password }} -t {{ azure_tenant }}
+- name: Create POC resource group
+  azure_rm_resourcegroup:
+    name: "{{ resource_group.name }}"
+    location: "{{ region.name }}"
+  register: rg_status
+
+- debug:
+    msg: "{{ rg_status }}"
+
+- name: Create a virtual network
+  azure_rm_virtualnetwork:
+    name: "{{ vnet.name }}"
+    resource_group: "{{ resource_group.name }}"
+    address_prefixes_cidr:
+        - "{{ vnet.address_prefixes_cidr }}"
+    dns_servers:
+        - "{{ vnet.dns }}"
+    tags:
+        poc: "{{ vnet.tag }}"
+
+- name: Create a subnet
+  azure_rm_subnet:
+    name: "{{ subnet.name }}"
+    virtual_network_name: "{{ vnet.name }}"
+    resource_group: "{{ resource_group.name }}"
+    address_prefix_cidr: "{{ subnet.address_prefix_cidr }}"
+
+
