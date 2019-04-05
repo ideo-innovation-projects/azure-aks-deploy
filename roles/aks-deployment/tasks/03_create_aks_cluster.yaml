@@ -2,6 +2,7 @@
 # 03_create_aks_cluster file for aks-deployment
 - name: Create a managed Azure Container Services (AKS) instance
   azure_rm_aks:
+    api_profile: "{{ aks.api_profile }}"
     name: "{{ aks.name }}"
     location: "{{ region.name }}"
     resource_group: "{{ resource_group.name }}"
