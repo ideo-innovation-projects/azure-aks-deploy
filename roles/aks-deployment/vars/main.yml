@@ -8,6 +8,7 @@ region:
 resource_group:
   name: aks-poc
 
+
 vnet:
   name: aks-vnet
   address_prefixes_cidr: 10.80.0.0/22
@@ -23,11 +24,27 @@ aks:
   api_profile: "latest"
   name: "aks-claro-poc"
   dns_prefix: "pocclaro"
+  version: '1.12.7'
   linux_profile:
     username: pocclaro
-    ssh_key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDi6EJw3z9dZD1opjUofDRBrzxRotBu9pqOtuBqyjusCkPTK2ZqWMhxpGPGt+O1+SnbShqwww1XIEsSB0lwi0CD4mCNh5a80FSxOalO6DBWmyGVqlMlLLl0r1NwcIvg5bpmnAAFhgPD9WPyYUbO43ngEI8DpkNwAanGtl9uvPOSyko2kX+bqqGwcrSQ57abHEvFAtJXE9XSUzmaspWcpifbrIcSJqJbmvBeHNjMlIt8aa/xDf2RNinAN1TOZxGOSZ85qGpdGbVXLJJPPCIqy5YuGNA5cqSdmAeGujSNa9HbP3iTfjvHdwTtJkwOyqJ5u3AiHxOq3xmxJ9DKA0asZGpJ jsancarr@MacBook-Pro-de-Everis-6.local"
+    ssh_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDi6EJw3z9dZD1opjUofDRBrzxRotBu9pqOtuBqyjusCkPTK2ZqWMhxpGPGt+O1+SnbShqwww1XIEsSB0lwi0CD4mCNh5a80FSxOalO6DBWmyGVqlMlLLl0r1NwcIvg5bpmnAAFhgPD9WPyYUbO43ngEI8DpkNwAanGtl9uvPOSyko2kX+bqqGwcrSQ57abHEvFAtJXE9XSUzmaspWcpifbrIcSJqJbmvBeHNjMlIt8aa/xDf2RNinAN1TOZxGOSZ85qGpdGbVXLJJPPCIqy5YuGNA5cqSdmAeGujSNa9HbP3iTfjvHdwTtJkwOyqJ5u3AiHxOq3xmxJ9DKA0asZGpJ jsancarr@MacBook-Pro-de-Everis-6.local'
   agent_pool_profiles:
     name: pocclaro
     count: 2
     vm_size: Standard_D2_v2
   tag: "poc-claro"
+
+namespace: 'akspoc'
+
+certificate:
+  type: "-x509"
+  durantion_days: 365
+  length: "rsa:2048"
+  keyout: "aks_poc_key.key"
+  certout: "aks_poc_cert.pem"
+  cn: "akspoc"
+  ou: "everis.com"
+  outputdir: "/tmp"
+
+ingress_controller:
+  secret: poc-ingresscontroller-secret
