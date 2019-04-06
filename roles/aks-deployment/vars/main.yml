@@ -54,3 +54,6 @@ acr:
   sku: Standard
   tag: "claropoc"
   secretname: "pocacr-registry"
+
+mysql:
+  name: "pocaksmysql"

@@ -1,0 +1,28 @@
+#- name: Create MySQL Server
+#  azure_rm_mysqlserver:
+#    resource_group: "{{ resource_group.name }}"
+#    name: "{{ mysql.name }}"
+#    sku:
+#      name: B_Gen5_2
+#      tier: Basic
+#      capacity: 2
+#    location: "{{ region.name }}"
+#    storage_mb: 5120
+#    enforce_ssl: false
+#    version: 5.7
+#    admin_username: rootpoc
+#    admin_password: ABX111**.
+
+- name: Create secret for mysql
+  shell: |
+    kubectl create secret generic mysql-secret \
+    --from-literal=mysql-root-password='everis2019' \
+    --from-literal=mysql-password='everis2019'
+
+
+- name: Create mysql inside aks avi_cluster
+  shell: |
+    helm install --name mysql-poc stable/mysql \
+    --set mysqlUser='root' \
+    --set existingSecret=mysql-secret 
+    

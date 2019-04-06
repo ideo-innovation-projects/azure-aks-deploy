@@ -4,3 +4,4 @@
 - include_tasks: 02_azure_preparation.yaml
 - include_tasks: 03_create_aks_cluster.yaml
 - include_tasks: 04_create_acr.yaml
+- include_tasks: 05_create_mysqlservice.yaml
