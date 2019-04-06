@@ -1,6 +1,5 @@
 ---
-# 03_create_aks_cluster file for aks-deployment
-
+ #03_create_aks_cluster file for aks-deployment
 - name: Create a managed Azure Container Services (AKS) instance
   azure_rm_aks:
     api_profile: "{{ aks.api_profile }}"
@@ -8,6 +7,7 @@
     location: "{{ region.name }}"
     resource_group: "{{ resource_group.name }}"
     dns_prefix: "{{ aks.dns_prefix }}"
+    kubernetes_version: "{{ aks.version }}"
     linux_profile:
       admin_username: "{{ aks.linux_profile.username }}"
       ssh_key: "{{ aks.linux_profile.ssh_key }}"
@@ -21,10 +21,10 @@
     auth_source: "{{ auth_source }}"
     tags:
       poc: "{{ aks.tag }}"
-
+      
 - name: Get credential cluster
   shell: |
-    az aks get-credentials --name {{ aks.name }} --resource-group {{ resource_group.name }}
+    az aks get-credentials --name {{ aks.name }} --resource-group {{ resource_group.name }} --admin
 
 - name: Apply helm rbac profile
   k8s:
@@ -34,7 +34,26 @@
 - name: Helm init
   shell: |
     helm init --service-account tiller --upgrade
-    
 
+- name: Generate PFX for Self Signed SSL Certificates
+  shell: |
+    openssl req {{ certificate.type }} -nodes -days {{ certificate.durantion_days }} -newkey {{ certificate.length }} -keyout "{{ certificate.outputdir }}/{{ certificate.keyout }}" -out "{{ certificate.outputdir }}/{{ certificate.certout }}" -subj "/CN={{ certificate.cn }}/O={{ certificate.ou }}"
+
+- name: Create POC name space
+  k8s:
+    name: "{{ namespace }}"
+    api_version: v1
+    kind: Namespace
+    state: present
+
+- name: Create secret for ingress controller
+  shell: |
+    kubectl create secret tls {{ ingress_controller.secret }} --key "{{ certificate.outputdir }}/{{ certificate.keyout }}" --cert "{{ certificate.outputdir }}/{{ certificate.certout }}"
+
+- name: Deploy Ingress controller
+  shell: |
+    helm install stable/nginx-ingress --name ingress-controller \
+    --set controller.extraArgs.default-ssl-certificate="default/azingressdesa-cert" \
+    --set-string controller.extraArgs.enable-ssl-chain-completion="false"
     
       

@@ -16,6 +16,8 @@ Also python module
 ```
 pip install ansible[azure]
 pip install openshift
+pip install pyhelm
+pip install grpcio
 ```
 Note: If you are using MacOsx space the brackets
 
