@@ -48,3 +48,8 @@ certificate:
 
 ingress_controller:
   secret: poc-ingresscontroller-secret
+
+acr:
+  name: poc-acr
+  sku: Standard
+  tag: "claropoc"

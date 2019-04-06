@@ -21,6 +21,11 @@
     auth_source: "{{ auth_source }}"
     tags:
       poc: "{{ aks.tag }}"
+
+- name: Delete current kubeconfig
+  file:
+    state: absent
+    path: "{{ lookup('env', 'HOME') }}/.kube/config"
       
 - name: Get credential cluster
   shell: |
@@ -53,7 +58,7 @@
 - name: Deploy Ingress controller
   shell: |
     helm install stable/nginx-ingress --name ingress-controller \
-    --set controller.extraArgs.default-ssl-certificate="default/azingressdesa-cert" \
+    --set controller.extraArgs.default-ssl-certificate="default/{{ ingress_controller.secret }}" \
     --set-string controller.extraArgs.enable-ssl-chain-completion="false"
     
       

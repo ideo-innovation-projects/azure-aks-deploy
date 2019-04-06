@@ -1,0 +1,11 @@
+---
+- name: Create an azure container registry
+  azure_rm_containerregistry:
+    name: testacr1
+    location: "{{ region.name }}"
+    resource_group: "{{ resource_group.name }}"
+    state: present
+    admin_user_enabled: true
+    sku: "{{ acr.sku }}"
+    tags:
+      poc: "{{ acr.tag }}"
