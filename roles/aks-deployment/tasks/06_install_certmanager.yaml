@@ -1,0 +1,14 @@
+---
+- name: Create Certmanager Deployment
+  shell: |
+    helm install \
+    --name atla-cert-manager \
+    --namespace kube-system \
+    --set rbac.create=true \
+    --version v0.5.2 \
+    stable/cert-manager
+
+- name: Apply Cluster Issuer and Certificate
+  shell: |
+    kubectl apply -f {{ role_path }}/templates/selfsigning-Clusterissuer.yml
+    kubectl apply -f {{ role_path }}/templates/selfsigning-certificate.yml

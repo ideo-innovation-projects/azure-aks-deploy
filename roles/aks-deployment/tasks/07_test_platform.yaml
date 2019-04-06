@@ -1,0 +1,5 @@
+---
+- name: Tag Probe Api
+  shell: |
+    docker tag f86bfd0a520f {{ acr.name }}.azurecr.io/tests:latest
+
