@@ -40,7 +40,7 @@
   shell: |
     helm init --service-account tiller --upgrade
 
-- name: Generate PFX for Self Signed SSL Certificates
+- name: Generate Self Signed SSL Certificates
   shell: |
     openssl req {{ certificate.type }} -nodes -days {{ certificate.durantion_days }} -newkey {{ certificate.length }} -keyout "{{ certificate.outputdir }}/{{ certificate.keyout }}" -out "{{ certificate.outputdir }}/{{ certificate.certout }}" -subj "/CN={{ certificate.cn }}/O={{ certificate.ou }}"
 

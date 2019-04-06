@@ -50,6 +50,7 @@ ingress_controller:
   secret: poc-ingresscontroller-secret
 
 acr:
-  name: poc-acr
+  name: pocacrclaro
   sku: Standard
   tag: "claropoc"
+  secretname: "pocacr-registry"

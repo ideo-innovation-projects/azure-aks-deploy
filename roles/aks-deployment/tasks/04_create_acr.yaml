@@ -1,7 +1,7 @@
 ---
 - name: Create an azure container registry
   azure_rm_containerregistry:
-    name: testacr1
+    name: "{{ acr.name }}"
     location: "{{ region.name }}"
     resource_group: "{{ resource_group.name }}"
     state: present
@@ -9,3 +9,20 @@
     sku: "{{ acr.sku }}"
     tags:
       poc: "{{ acr.tag }}"
+
+- name: Get acr username
+  shell: |
+    az acr credential show -n {{ acr.name }} --query username
+  register: acr_username
+
+- name: Get acr password
+  shell: |
+    az acr credential show -n {{ acr.name }} --query "passwords[0].value"
+  register: acr_password
+
+- name: Create secret for private acr registry
+  shell: |
+    kubectl create secret docker-registry {{ acr.secretname }} -n {{ namespace }} \
+     --docker-server="{{ acr.name }}.azurecr.io" \
+     --docker-username="{{ acr_username.stdout }}" \
+     --docker-password={{ acr_password.stdout | replace('\"', '') }}
