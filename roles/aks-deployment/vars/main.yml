@@ -22,17 +22,17 @@ subnet:
 
 aks:
   api_profile: "latest"
-  name: "aks-claro-poc"
-  dns_prefix: "pocclaro"
+  name: "aks-tdp-poc"
+  dns_prefix: "poctdp"
   version: '1.12.7'
   linux_profile:
-    username: pocclaro
+    username: poctdp
     ssh_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDi6EJw3z9dZD1opjUofDRBrzxRotBu9pqOtuBqyjusCkPTK2ZqWMhxpGPGt+O1+SnbShqwww1XIEsSB0lwi0CD4mCNh5a80FSxOalO6DBWmyGVqlMlLLl0r1NwcIvg5bpmnAAFhgPD9WPyYUbO43ngEI8DpkNwAanGtl9uvPOSyko2kX+bqqGwcrSQ57abHEvFAtJXE9XSUzmaspWcpifbrIcSJqJbmvBeHNjMlIt8aa/xDf2RNinAN1TOZxGOSZ85qGpdGbVXLJJPPCIqy5YuGNA5cqSdmAeGujSNa9HbP3iTfjvHdwTtJkwOyqJ5u3AiHxOq3xmxJ9DKA0asZGpJ jsancarr@MacBook-Pro-de-Everis-6.local'
   agent_pool_profiles:
-    name: pocclaro
+    name: poctdp
     count: 2
     vm_size: Standard_D2_v2
-  tag: "poc-claro"
+  tag: "poc-tdp"
 
 namespace: 'akspoc'
 
@@ -50,9 +50,9 @@ ingress_controller:
   secret: poc-ingresscontroller-secret
 
 acr:
-  name: pocacrclaro
+  name: pocacrtdp
   sku: Standard
-  tag: "claropoc"
+  tag: "tdppoc"
   secretname: "pocacr-registry"
 
 mysql:

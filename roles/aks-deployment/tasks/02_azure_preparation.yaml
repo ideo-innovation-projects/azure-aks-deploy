@@ -1,9 +1,9 @@
 ---
 # tasks 02_azure_preparation.yaml file for aks-deployment
 
-- name: Set subscription
-  shell: |
-    az account set --subscription be6a3ac7-c114-43ef-8bac-292ac721df98
+#- name: Set subscription
+#  shell: |
+#    az account set --subscription be6a3ac7-c114-43ef-8bac-292ac721df98
 
 - name: Create POC resource group
   azure_rm_resourcegroup:

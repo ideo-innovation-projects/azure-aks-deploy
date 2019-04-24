@@ -72,7 +72,7 @@ aks:
   name: "aks-poc"
   dns_prefix: "poc"
   linux_profile:
-    username: poc_claro
+    username: poc_tdp
     ssh_key: "/Users/user/.ssh/id_rsa.pub"
   agent_pool_profiles:
     name: default
@@ -117,4 +117,6 @@ BSD
 
 Author Information
 ------------------
-Author: Jesus Sanchez
+Author: 
+* Jesus Sanchez
+* Jonis González
