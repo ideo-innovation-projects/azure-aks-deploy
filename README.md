@@ -14,10 +14,10 @@ At this time your local deployment host need the following prerequisites:
 ```
 Also python module
 ```
-pip install ansible[azure]
-pip install openshift
-pip install pyhelm
-pip install grpcio
+pip install ansible[azure] --user
+pip install openshift --user
+pip install pyhelm --user
+pip install grpcio --user
 ```
 Note: If you are using MacOsx space the brackets
 
@@ -99,12 +99,15 @@ Including an example of how to use your role (for instance, with variables passe
   - import_role:
        name: aks-deployment
 ```
-host file
+
+* Hosts file
 
 ```
 [k8s-aks-dev]
 localhost
 ```
+
+* Invoke playbook on the CLI
 
 ```bash
 ansible-playbook site.yaml -i hosts -e 'hosted_on=aks' -e 'deployment_enviroment=dev'
