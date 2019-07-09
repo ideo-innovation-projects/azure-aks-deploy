@@ -110,7 +110,7 @@ localhost
 * Invoke playbook on the CLI
 
 ```bash
-ansible-playbook site.yaml -i hosts -e 'hosted_on=aks' -e 'deployment_enviroment=dev'
+ansible-playbook site.yaml -i hosts -e 'hosted_on=aks' -e 'deployment_enviroment=dev' -e 'project_name=poc'
 ```
 
 License
