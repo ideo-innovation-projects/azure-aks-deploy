@@ -7,6 +7,7 @@
     location: "{{ region.name }}"
     resource_group: "{{ resource_group.name }}"
     dns_prefix: "{{ aks.dns_prefix }}"
+    enable_rbac: "{{ aks.rbac }}"
     kubernetes_version: "{{ aks.version }}"
     linux_profile:
       admin_username: "{{ aks.linux_profile.username }}"
@@ -18,9 +19,20 @@
       - name: "{{ aks.agent_pool_profiles.name }}"
         count: "{{ aks.agent_pool_profiles.count }}"
         vm_size: "{{ aks.agent_pool_profiles.vm_size }}"
+        vnet_subnet_id: "{{ subnet.id }}"
+    network_profile:
+      network_plugin: "{{ aks.network_profile.network_plugin }}"
+      dns_service_ip: "{{ aks.network_profile.dns_service_ip }}"
+      service_cidr: "{{ aks.network_profile.service_cidr }}"
+      pod_cidr: "{{ aks.network_profile.pod_cidr }}"
+      docker_bridge_cidr: "{{ aks.network_profile.docker_bridge_cidr }}"
     auth_source: "{{ auth_source }}"
+    addon: 
+       http_application_routing:
+         "{{ aks.addon.http_application_routing }}"
     tags:
-      poc: "{{ aks.tag }}"
+      "{{ aks.tag }}"
+
 
 - name: Delete current kubeconfig
   file:

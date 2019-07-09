@@ -6,45 +6,59 @@ region:
   name: eastus2
 
 resource_group:
-  name: aks-poc
-
+  name: "RG-{{ project_name }}-{{ deployment_enviroment }}"
 
 vnet:
-  name: aks-vnet
-  address_prefixes_cidr: 10.80.0.0/22
-  dns: 8.8.8.8
-  tag: testing
+  name: "VNET-{{ project_name }}-{{ deployment_enviroment }}"
+  address_prefixes_cidr: 172.30.239.0/24
+  tag: 
+    ENV: "{{ deployment_enviroment }}"
 
 subnet:
-  name: aks-subnet
+  name: SNET-{{ project_name }}-{{ deployment_enviroment }}
   virtual_network_name: "{{ vnet.name }}"
-  address_prefix_cidr: 10.80.0.0/24
+  address_prefix_cidr: 172.30.239.0/24
+  id: /subscriptions/b892494a-44a7-437b-a2f7-bc484f521353/resourceGroups/RG-genesis-dev/providers/Microsoft.Network/virtualNetworks/VNET-aks-dev/subnets/SNET-aks-genesis
 
 aks:
   api_profile: "latest"
-  name: "aks-tdp-poc"
-  dns_prefix: "poctdp"
-  version: '1.12.7'
+  name: "aks-{{ project_name }}-{{ deployment_enviroment }}"
+  dns_prefix: "{{ project_name }}"
+  version: '1.13.5'
   linux_profile:
-    username: poctdp
-    ssh_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDi6EJw3z9dZD1opjUofDRBrzxRotBu9pqOtuBqyjusCkPTK2ZqWMhxpGPGt+O1+SnbShqwww1XIEsSB0lwi0CD4mCNh5a80FSxOalO6DBWmyGVqlMlLLl0r1NwcIvg5bpmnAAFhgPD9WPyYUbO43ngEI8DpkNwAanGtl9uvPOSyko2kX+bqqGwcrSQ57abHEvFAtJXE9XSUzmaspWcpifbrIcSJqJbmvBeHNjMlIt8aa/xDf2RNinAN1TOZxGOSZ85qGpdGbVXLJJPPCIqy5YuGNA5cqSdmAeGujSNa9HbP3iTfjvHdwTtJkwOyqJ5u3AiHxOq3xmxJ9DKA0asZGpJ jsancarr@MacBook-Pro-de-Everis-6.local'
+    username: "{{ project_name }}"
+    ssh_key: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDQLvjVRST6uOhTUa2CVFJQaoGPVOmUepo2gene7Fo13yaiYaBkJ6v3v09D0LIaYnGvmHiuKizfnS7v+MKFhKrt4/Sbx5P0J9PxPyECDy2KmXlohVAWfq54BqHzZLByMwwNWZKybQR2wtxJ6Eyj61SPWBmKLf74VX3strD4ogydDVzeTGlwP0QElKs4mWup1JyGRjpr+fknRgG1LKIUyn/TrEvRH4z5Q39c+WU/633HOpREPIzO04I7nan4vx/XFTa5qPHm6klzNnSJti8RUGM6pO+XkzcdCs1mSN6gtwsoUawgeTtubBKO8x6SN/kLqYjfD7P067rSJXCnEla98SwV vagrant@localhost.localdomain'
   agent_pool_profiles:
-    name: poctdp
+    name: "{{ project_name }}"
     count: 2
-    vm_size: Standard_D2_v2
-  tag: "poc-tdp"
-
-namespace: 'akspoc'
+    vm_size: Standard_D8s_v3
+  network_profile:
+    network_plugin: kubenet
+    dns_service_ip: 10.0.0.10
+    service_cidr: 10.0.0.0/16
+    pod_cidr: 10.244.0.0/16
+    docker_bridge_cidr: 172.17.0.1/16
+  virtual_node:
+    enabled: no
+  tag: 
+    ENV: "{{ deployment_enviroment }}"
+  addon:
+    http_application_routing:
+      enabled: no
+  namespace: '{{ project_name }}'
+  rbac: yes
 
 certificate:
   type: "-x509"
   durantion_days: 365
   length: "rsa:2048"
-  keyout: "aks_poc_key.key"
-  certout: "aks_poc_cert.pem"
-  cn: "akspoc"
-  ou: "everis.com"
+  keyout: "aks_{{ project_name }}_{{ deployment_enviroment }}.key"
+  certout: "aks_{{ project_name }}_{{ deployment_enviroment }}.pem"
+  cn: "{{ project_name }}"
+  ou: "telefonica.com"
   outputdir: "/tmp"
+
+namespace: '{{ project_name }}'
 
 ingress_controller:
   secret: poc-ingresscontroller-secret
